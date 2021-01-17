@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "develop": "webpack-dev-server"
+    "develop": "webpack serve"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
