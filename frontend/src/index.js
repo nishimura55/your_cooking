@@ -1,12 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-
-const App = () => {
-  return (
-    <>
-      <h1>Hello, Your Cooking!</h1>
-    </>
-  )
-};
+import {App} from './components/App';
 
 ReactDOM.render(<App/>, document.getElementById('app'));
