@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Food} from './Food';
 
 export const Refregerator = () => {
-  const foodsInRefregerator = [
-    { 'name': '白菜' },
-    { 'name': 'にんじん' },
-  ]
+  const [foodsInRefregerator, setFoodsInRefregerator] = useState([])
+
+  useEffect(() => {
+    fetchFoodsInRefregeratorData();
+    console.log(foodsInRefregerator)
+  }, [])
+
+  const fetchFoodsInRefregeratorData = () => {
+    fetch('http://localhost:3000/foods')
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setFoodsInRefregerator(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   return (
     <>
