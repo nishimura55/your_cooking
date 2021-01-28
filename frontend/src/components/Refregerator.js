@@ -6,7 +6,6 @@ export const Refregerator = () => {
 
   useEffect(() => {
     fetchFoodsInRefregeratorData();
-    console.log(foodsInRefregerator)
   }, [])
 
   const fetchFoodsInRefregeratorData = () => {
