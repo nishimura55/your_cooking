@@ -5,6 +5,7 @@ import {Food} from './Food';
 export const Refregerator = () => {
   const [foodsInRefregerator, setFoodsInRefregerator] = useState([])
   const [foodForputInRefregerator, setFoodForputInRefregerator] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
 
   useEffect(() => {
     fetchFoodsInRefregeratorData()
@@ -35,14 +36,22 @@ export const Refregerator = () => {
       }),
     })
       .then(response => {
-        if(!response.ok) {
+        if (!response.ok) {
           throw Error(response.statusText)
         }
-        setFoodsInRefregerator(prevVal => {
-          const newVal = foodForputInRefregerator
-          setFoodForputInRefregerator("")
-          return [...prevVal, newVal]
-        })
+        return response.json()
+      })
+      .then(data => {
+        console.log(data)
+        if (data.error_message) {
+          setErrorMessage(data.error_message)
+        } else {
+          setFoodsInRefregerator(prevVal => {
+            setFoodForputInRefregerator("")
+            setErrorMessage("")
+            return [...prevVal, data.name]
+          })
+        }
       })
       .catch(error => {
         console.log(`putInRefregeratorでエラー発生！ ${error}`)
@@ -57,6 +66,7 @@ export const Refregerator = () => {
        handlSubmit={putInRefregerator}
        inputText={foodForputInRefregerator}
        handlInputText={setFoodForputInRefregerator}
+       errorMessage={errorMessage}
       />
       <ul>
         {foodsInRefregerator.map(food =>

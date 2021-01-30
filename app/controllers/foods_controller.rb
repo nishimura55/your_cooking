@@ -6,7 +6,11 @@ class FoodsController < ApplicationController
 
   def create
     food = Food.new(food_params)
-    food.save!
+    if food.save
+      render json: food
+    else
+      render json: { error_message: food.errors.full_messages }
+    end
   end
 
   private

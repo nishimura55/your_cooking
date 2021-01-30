@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const InputArea = (props) => {
-  const { handlSubmit, inputText, handlInputText } = props
+  const { handlSubmit, inputText, handlInputText, errorMessage } = props
 
   const handleInputValue = (e) => {
     const inputValue = e.target.value
@@ -18,6 +18,9 @@ export const InputArea = (props) => {
           placeholder="買った食材を入力"
         />
         <button type="submit">食材を投入</button>
+        {errorMessage &&
+          <p style={{color: "red"}}>{errorMessage}</p>
+        }
       </form>
     </>
   )
