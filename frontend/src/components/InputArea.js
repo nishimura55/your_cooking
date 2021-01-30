@@ -17,7 +17,7 @@ export const InputArea = (props) => {
           onChange={handleInputValue}
           placeholder="買った食材を入力"
         />
-        <button type="submit">食材を投入</button>
+        <button type="submit" style={{marginLeft: "5px"}}>食材を投入</button>
         {errorMessage &&
           <p style={{color: "red"}}>{errorMessage}</p>
         }

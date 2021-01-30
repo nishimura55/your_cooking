@@ -1,7 +1,7 @@
 class FoodsController < ApplicationController
   def index
-    foods_name = Food.all.pluck(:name)
-    render json: foods_name
+    foods = Food.all
+    render json: foods
   end
 
   def create
@@ -11,6 +11,11 @@ class FoodsController < ApplicationController
     else
       render json: { error_message: food.errors.full_messages }
     end
+  end
+
+  def destroy
+    food = Food.find(params[:id])
+    food.destroy
   end
 
   private

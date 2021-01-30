@@ -42,19 +42,35 @@ export const Refregerator = () => {
         return response.json()
       })
       .then(data => {
-        console.log(data)
         if (data.error_message) {
           setErrorMessage(data.error_message)
         } else {
           setFoodsInRefregerator(prevVal => {
             setFoodForputInRefregerator("")
             setErrorMessage("")
-            return [...prevVal, data.name]
+            return [...prevVal, data]
           })
         }
       })
       .catch(error => {
         console.log(`putInRefregeratorでエラー発生！ ${error}`)
+      }
+    )
+  }
+
+  const destroyFood = (e) => {
+    const targetId = parseInt(e.target.id, 10)
+    fetch(`http://localhost:3000/foods/${targetId}`, {
+      method: "DELETE",
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText)
+        }
+        setFoodsInRefregerator(prevVal => prevVal.filter(val => val.id !== targetId))
+      })
+      .catch(error => {
+        console.log(`destroyFoodでエラー発生！ ${error}`)
       }
     )
   }
@@ -70,7 +86,10 @@ export const Refregerator = () => {
       />
       <ul>
         {foodsInRefregerator.map(food =>
-          <Food food={food} />
+          <Food
+            food={food}
+            destroyFood={destroyFood}
+          />
         )}
       </ul>
     </>
