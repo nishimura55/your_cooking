@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {InputArea} from './InputArea';
 import {Food} from './Food';
 
-export const Refregerator = () => {
-  const [foodsInRefregerator, setFoodsInRefregerator] = useState([])
+export const Refregerator = (props) => {
+  const { foods, setFoods, moveFood } = props
+
   const [foodForputInRefregerator, setFoodForputInRefregerator] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
 
@@ -14,7 +15,7 @@ export const Refregerator = () => {
   const fetchFoodsInRefregeratorData = () => {
     fetch("http://localhost:3000/foods")
       .then(response => response.json())
-      .then(data => setFoodsInRefregerator(data))
+      .then(data => setFoods(data))
       .catch(error => {
         console.log(`fetchFoodsInRefregeratorDataでエラー発生！ ${error}`)
       }
@@ -45,7 +46,7 @@ export const Refregerator = () => {
         if (data.error_message) {
           setErrorMessage(data.error_message)
         } else {
-          setFoodsInRefregerator(prevVal => {
+          setFoods(prevVal => {
             setFoodForputInRefregerator("")
             setErrorMessage("")
             return [...prevVal, data]
@@ -58,26 +59,9 @@ export const Refregerator = () => {
     )
   }
 
-  const destroyFood = (e) => {
-    const targetId = parseInt(e.target.id, 10)
-    fetch(`http://localhost:3000/foods/${targetId}`, {
-      method: "DELETE",
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw Error(response.statusText)
-        }
-        setFoodsInRefregerator(prevVal => prevVal.filter(val => val.id !== targetId))
-      })
-      .catch(error => {
-        console.log(`destroyFoodでエラー発生！ ${error}`)
-      }
-    )
-  }
-
   return (
-    <>
-      <h2>冷蔵庫</h2>
+    <div className="refregerator-area box">
+      <h2 className="title">冷蔵庫</h2>
       <InputArea
        handlSubmit={putInRefregerator}
        inputText={foodForputInRefregerator}
@@ -85,13 +69,15 @@ export const Refregerator = () => {
        errorMessage={errorMessage}
       />
       <ul>
-        {foodsInRefregerator.map(food =>
+        {foods.map(food =>
           <Food
             food={food}
-            destroyFood={destroyFood}
+            setFoods={setFoods}
+            moveFood={moveFood}
+            inRefregerator={true}
           />
         )}
       </ul>
-    </>
+    </div>
   )
 };

@@ -1,0 +1,31 @@
+.main-area {
+  font-family: ヒラギノ丸ゴ ProN;
+  padding: 0 150px;
+  .refregerator-area {
+    background-color: #DDDDDD;
+    padding: 20px 30px;
+    width: 30%;
+    border-radius: 10%;
+    .title {
+      margin-top: 0px;
+    }
+  }
+  .kitchin-area {
+    background-color: #FFFFCC;
+    padding: 20px 30px;
+    margin-left: 15px;
+    width: 30%;
+    border-radius: 10%;
+    .title {
+      margin-top: 0px;
+    }
+  }
+}
+
+.box {
+  float: left;
+}
+
+button {
+  margin-left: 10px;
+}
