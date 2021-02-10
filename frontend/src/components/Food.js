@@ -31,4 +31,4 @@ export const Food = (props) => {
       </button>
     </li>
   )
-};
+}

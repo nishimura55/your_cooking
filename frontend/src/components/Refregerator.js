@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {InputArea} from './InputArea';
 import {Food} from './Food';
 
 export const Refregerator = (props) => {
+  const endPoint = "http://localhost:3000/foods"
+
   const { foods, setFoods, moveFood } = props
 
   const [foodForputInRefregerator, setFoodForputInRefregerator] = useState("")
@@ -13,7 +15,7 @@ export const Refregerator = (props) => {
   }, [])
 
   const fetchFoodsInRefregeratorData = () => {
-    fetch("http://localhost:3000/foods")
+    fetch(endPoint)
       .then(response => response.json())
       .then(data => setFoods(data))
       .catch(error => {
@@ -24,7 +26,7 @@ export const Refregerator = (props) => {
 
   const putInRefregerator = (e) => {
     e.preventDefault()
-    fetch("http://localhost:3000/foods", {
+    fetch(endPoint, {
       method: "POST",
       headers: {
         Accept: 'application/json',
@@ -46,9 +48,9 @@ export const Refregerator = (props) => {
         if (data.error_message) {
           setErrorMessage(data.error_message)
         } else {
+          setFoodForputInRefregerator("")
+          setErrorMessage("")
           setFoods(prevVal => {
-            setFoodForputInRefregerator("")
-            setErrorMessage("")
             return [...prevVal, data]
           })
         }

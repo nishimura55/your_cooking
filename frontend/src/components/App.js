@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Header} from './Header';
 import {Refregerator} from './Refregerator';
 import {Kitchin} from './Kitchin';
@@ -25,21 +25,19 @@ export const App = () => {
   }
 
   return (
-    <>
-      <div className="main-area">
-        <Header />
-        <Refregerator
-          foods={foodsInRefregerator}
-          setFoods={setFoodsInRefregerator}
-          moveFood={moveFood}
-        />
-        <Kitchin
-          foods={foodsInKitchin}
-          setFoods={setFoodsInKitchin}
-          moveFood={moveFood}
-          returnAllFoods={returnAllFoods}
-        />
-      </div>
-    </>
+    <div className="main-area">
+      <Header />
+      <Refregerator
+        foods={foodsInRefregerator}
+        setFoods={setFoodsInRefregerator}
+        moveFood={moveFood}
+      />
+      <Kitchin
+        foods={foodsInKitchin}
+        setFoods={setFoodsInKitchin}
+        moveFood={moveFood}
+        returnAllFoods={returnAllFoods}
+      />
+    </div>
   )
 };
