@@ -1,4 +1,6 @@
 class FoodsController < ApplicationController
+  before_action :set_food, only: [:destroy, :get_recipes]
+
   def index
     foods = Food.all
     render json: foods
@@ -14,13 +16,24 @@ class FoodsController < ApplicationController
   end
 
   def destroy
-    food = Food.find(params[:id])
-    food.destroy
+    @food.destroy
+  end
+
+  def get_recipes
+    category_id = @food.get_category_id
+    binding.pry
+    recipies = RakutenRecipeApiClient.get_recipes(category_id) if category_id
+    render json: recipies
   end
 
   private
 
   def food_params
     params.require(:food).permit(:name)
+  end
+
+  def set_food
+    id = params[:id] || params[:food_id]
+    @food = Food.find(id)
   end
 end
