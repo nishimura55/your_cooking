@@ -30,3 +30,5 @@
 /frontend/www/bundle.js
 /frontend/yarn-error.log
 /frontend/yarn.lock
+
+/.env
