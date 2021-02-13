@@ -32,7 +32,8 @@ class RakutenRecipeApiClient
     params = {
       "format" => "json",
       "applicationId" => "#{ENV['RAKUTEN_APPLICATION_ID']}",
-      "categoryId" => category_id.to_s
+      "categoryId" => category_id.to_s,
+      "elements" => "recipeTitle,recipeUrl",
     }
     uri.query = URI.encode_www_form(params)
   end

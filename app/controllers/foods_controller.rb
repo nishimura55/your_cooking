@@ -21,9 +21,8 @@ class FoodsController < ApplicationController
 
   def get_recipes
     category_id = @food.get_category_id
-    binding.pry
-    recipies = RakutenRecipeApiClient.get_recipes(category_id) if category_id
-    render json: recipies
+    recipes = RakutenRecipeApiClient.get_recipes(category_id) if category_id
+    render json: recipes
   end
 
   private
